@@ -33,7 +33,7 @@ int Base64Encode(char **dest, const char *src, unsigned int slen){
 
 	if (bio) BIO_free_all(bio);
 
-	*dest = (unsigned char *)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, (*bufferPtr).length + 1);
+	*dest = (char *)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, (*bufferPtr).length + 1);
 	if (*dest == NULL) return false;
 
 	(*bufferPtr).data[(*bufferPtr).length] = '\0';
@@ -56,7 +56,7 @@ int Base64Decode(char **dest, const char *src){
 
 	unsigned int decode_length = countDecodedLength(src);
 
-	*dest = (unsigned char *)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, decode_length + 1);
+	*dest = (char *)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, decode_length + 1);
 	if (*dest == NULL) return false;
 
 	bio = BIO_new_mem_buf((char*)src, -1);
@@ -83,7 +83,7 @@ int Base64Decode(char **dest, const char *src){
 
 	if (bio) BIO_free_all(bio);
 
-	dest[decode_length] = '\0';
+	*(*dest + decode_length) = '\0';
 
 	return decode_length + 1;
 }
