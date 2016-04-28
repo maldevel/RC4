@@ -4,10 +4,10 @@
 bool GenerateKeys(const unsigned char *password, int plen, unsigned char *rc4Salt, unsigned char *rc4Key){
 	if (password == NULL || plen <= 0) return false;
 
-	if (RAND_bytes(rc4Salt, PKCS5_SALT_LEN) == 0) return false;
-	rc4Salt[PKCS5_SALT_LEN] = '\0';
+	if (RAND_bytes(rc4Salt, SALT_LEN) == 0) return false;
+	rc4Salt[SALT_LEN] = '\0';
 
-	if (PKCS5_PBKDF2_HMAC_SHA1(password, RC4_KEY_LEN, rc4Salt, PKCS5_SALT_LEN, RC4_ROUNDS, RC4_KEY_LEN, rc4Key) == 0) 
+	if (PKCS5_PBKDF2_HMAC_SHA1(password, RC4_KEY_LEN, rc4Salt, SALT_LEN, ITERATIONS, RC4_KEY_LEN, rc4Key) == 0) 
 		return false;
 
 	rc4Key[RC4_KEY_LEN] = '\0';

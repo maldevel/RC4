@@ -1,8 +1,9 @@
 #ifndef RC4ENC_H_
 #define RC4ENC_H_
 
-#define RC4_ROUNDS		5
+#define ITERATIONS		10000
 #define RC4_KEY_LEN		16
+#define SALT_LEN		16
 
 #include <openssl/evp.h>
 #include <openssl/rand.h>
